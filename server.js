@@ -35,6 +35,23 @@ const writeBooks = (books) => {
   }
 };
 
+// GET / - Welcome message
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Welcome to Books API',
+    version: '1.0.0',
+    endpoints: {
+      'GET /books': 'Get all books',
+      'GET /books/:id': 'Get a book by ID',
+      'GET /books/available': 'Get only available books',
+      'POST /books': 'Add a new book',
+      'PUT /books/:id': 'Update a book by ID',
+      'DELETE /books/:id': 'Delete a book by ID'
+    },
+    documentation: 'Visit /books to see all books'
+  });
+});
+
 // GET /books/available - Return only available books
 app.get('/books/available', (req, res) => {
   try {
