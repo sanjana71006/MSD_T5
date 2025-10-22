@@ -56,6 +56,28 @@ app.get('/books', (req, res) => {
   }
 });
 
+// GET /books/:id - Return a single book by ID
+app.get('/books/:id', (req, res) => {
+  try {
+    const bookId = parseInt(req.params.id);
+    
+    if (isNaN(bookId)) {
+      return res.status(400).json({ error: 'Invalid book ID' });
+    }
+
+    const books = readBooks();
+    const book = books.find(book => book.id === bookId);
+
+    if (!book) {
+      return res.status(404).json({ error: 'Book not found' });
+    }
+
+    res.json(book);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to retrieve book' });
+  }
+});
+
 // POST /books - Add a new book
 app.post('/books', (req, res) => {
   try {
